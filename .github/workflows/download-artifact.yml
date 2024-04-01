@@ -1,0 +1,95 @@
+name: download
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ubuntu-v2:
+    runs-on: [ ubuntu-latest ]
+    steps:
+    - name: Prepare
+      run: |
+        mkdir target
+
+    - name: Download
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        workflow: upload.yml
+        workflow_conclusion: success
+        search_artifacts: true
+        repo: dawidd6/action-download-artifact
+        path: target
+        name: artifact
+
+    - name: Print
+      run: |
+        pwd
+        ls -la
+        ls -la target/
+
+  ubuntu-v3:
+    runs-on: [ ubuntu-latest ]
+    steps:
+    - name: Prepare
+      run: |
+        mkdir target
+
+    - name: Download
+      uses: dawidd6/action-download-artifact@v3
+      with:
+        workflow: upload.yml
+        workflow_conclusion: success
+        search_artifacts: true
+        repo: dawidd6/action-download-artifact
+        path: target
+        name: artifact
+
+    - name: Print
+      run: |
+        pwd
+        ls -la
+        ls -la target/
+
+  windows-v2:
+    runs-on: [ windows-latest ]
+    steps:
+    - name: Prepare
+      run: |
+        md target
+    
+    - name: Download
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        workflow: upload.yml
+        workflow_conclusion: success
+        search_artifacts: true
+        repo: dawidd6/action-download-artifact
+        path: target
+        name: artifact
+    
+    - name: Print
+      run: |
+        pwd
+        gci -recurse | select FullName
+
+  windows-v3:
+      runs-on: [ windows-latest ]
+      steps:
+      - name: Prepare
+        run: |
+          md target
+      
+      - name: Download
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow: upload.yml
+          workflow_conclusion: success
+          search_artifacts: true
+          repo: dawidd6/action-download-artifact
+          path: target
+          name: artifact
+      
+      - name: Print
+        run: |
+          pwd
+          gci -recurse | select FullName

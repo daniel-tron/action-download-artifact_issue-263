@@ -8,8 +8,8 @@ on:
 
 jobs:
   print:
-    runs-on: [ ubuntu-latest ]
+    runs-on: [ windows-latest ]
     steps:
     - name: print env
       run: |
-        echo $VERSION
+        ${{ env.VERSION }}
